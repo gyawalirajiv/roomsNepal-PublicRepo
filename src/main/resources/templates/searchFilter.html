@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Cha | Find a Perfect Rental - Room, Flat, House</title>
+    <script th:src="@{/core/searchFilter/searchFilterPagination.js}"></script>
+    <script th:src="@{/core/searchFilter/advancedSearchButton.js}"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/core/searchPropertyAutoComplete.js}"></script>
+
+    <!--GOOGLE SEO-->
+    <meta name="description"
+          content="RoomCha.com is a perfect place for you to find your dream rental property in Kathmandu, Nepal; such as Single Room, Flat, or even a Whole House. You can also post your property here for free so public can view and rent your property."/>
+</head>
+<body>
+<div layout:fragment="content-fluid">
+    <div class="container-fluid">
+        <div class="col-md-3 col-lg-2">
+            <div class="advanced-search">
+                <form class="form-inline" name="input" method="get" action="#" id="filter-tables">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4 class="muted">Advanced Search</h4>
+                            <select class="form-control" id="property-type" name="type"
+                                    style="width: 100%;margin-top: 15px">
+                                <option>Select Rent Type</option>
+                                <option>Room</option>
+                                <option>Flat</option>
+                                <option>House</option>
+                            </select>
+                            <div>
+                                <input id="tags" class="form-control" placeholder="Location" name="location"
+                                       style="width: 100%; margin-top: 15px;" id="tags">
+                            </div>
+                            <p></p>
+                            <div class="input-daterange input-group" id="datepicker" style="margin-top: 5px;">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                <input type="text" id="min-price" class="input-sm form-control" name="minPrice"
+                                       placeholder="Min"/>
+                                <span class="input-group-addon"> - </span>
+                                <input type="text" id="max-price" class="input-sm form-control" name="maxPrice"
+                                       placeholder="Max"/>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                            </div>
+                            <button type="submit" id="advanced-search-button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="locations-panel visible-lg visible-md" style="margin-left: 0px;">
+                <h4><span class="glyphicon glyphicon-fire" style="color: #fff;"></span><b style="color: #fff"> Hot
+                    Locations</b></h4>
+                <div class="row">
+                    <ul class="col-sm-6" style="list-style: none;float: left;">
+                        <li><a href="/searchFilter?location=Bafal">Bafal</a></li>
+                        <li><a href="/searchFilter?location=Baluwatar">Baluwatar</a></li>
+                        <li><a href="/searchFilter?location=Bhaisepati">Bhaisepati</a></li>
+                        <li><a href="/searchFilter?location=Baneswor">Baneswor</a></li>
+                        <li><a href="/searchFilter?location=Bansbari">Bansbari</a></li>
+                        <li><a href="/searchFilter?location=Basundhara">Basundhara</a></li>
+                        <li><a href="/searchFilter?location=Bishalnagar">Bishalnagar</a></li>
+                        <li><a href="/searchFilter?location=Budhanilkantha">Budhanilkantha</a></li>
+                        <li><a href="/searchFilter?location=Dhapakhel">Dhapakhel</a></li>
+                        <li><a href="/searchFilter?location=Dhapasi">Dhapasi</a></li>
+                        <li><a href="/searchFilter?location=Gangabu">Gangabu</a></li>
+                        <li><a href="/searchFilter?location=Galfutar">Galfutar</a></li>
+                        <li><a href="/searchFilter?location=Harisiddhi">Harisiddhi</a></li>
+                    </ul>
+                    <ul class="col-sm-6" style="list-style: none;float: right;">
+                        <li><a href="/searchFilter?location=Imadol">Imadol</a></li>
+                        <li><a href="/searchFilter?location=Kalanki">Kalanki</a></li>
+                        <li><a href="/searchFilter?location=Khumaltar">Khumaltar</a></li>
+                        <li><a href="/searchFilter?location=Maharajganj">Maharajganj</a></li>
+                        <li><a href="/searchFilter?location=Mandikatar">Mandikatar</a></li>
+                        <li><a href="/searchFilter?location=Narayanthan">Narayanthan</a></li>
+                        <li><a href="/searchFilter?location=Pasikot">Pasikot</a></li>
+                        <li><a href="/searchFilter?location=Samakhusi">Samakhusi</a></li>
+                        <li><a href="/searchFilter?location=Sanepa">Sanepa</a></li>
+                        <li><a href="/searchFilter?location=Sitapaila">Sitapaila</a></li>
+                        <li><a href="/searchFilter?location=Sukedhara">Sukedhara</a></li>
+                        <li><a href="/searchFilter?location=Thamel">Thamel</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9">
+            <hgroup class="mb20">
+                <h1>Search Results</h1>
+                <h2 class="lead"><strong th:utext="${propertiesCount}" class="text-danger">3</strong> results were
+                    found. <span th:if="${filterDisplayMessage != ''}"> Filters applied: <strong
+                            class="text-danger"><span th:utext="${filterDisplayMessage}"></span></strong></span></h2>
+            </hgroup>
+
+            <section class="col-xs-12 col-sm-12 col-md-12">
+                <article th:each="property : ${properties}" class="search-result row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <a th:href="'/property/' + ${property.id}" title="Lorem ipsum" class="thumbnail"><img
+                                th:src="${property.photoURLs.get(0).photoURL}" alt="Lorem ipsum"/></a>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-2">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-usd"></i> <span
+                                    th:utext="'Rs. ' + ${property.waterSupply} + ' / month'"></span></li>
+                            <li><i class="glyphicon glyphicon-map-marker"></i> <span
+                                    th:utext="${property.location}"></span></li>
+                            <i class="ionicons ion-android-home"></i>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span th:utext="${property.type}"></span></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-7 excerpet">
+                        <h3><a th:href="'/property/' + ${property.id}" title=""
+                               th:utext="'Rs. ' + ${property.waterSupply} + ' - ' + ${property.location} + ' (' + ${property.type} + ')'">Voluptatem,
+                            exercitationem, suscipit, distinctio</a></h3>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <b>Size: </b><span th:utext="${property.roomSize}"/>
+                            </div>
+                            <div class="col-sm-7">
+                                <b>Floor Number: </b><span th:utext="${property.floorNumber}"/>
+                            </div>
+                            <div class="col-sm-5">
+                                <b># of Rooms: </b><span th:utext="${property.numberOfRooms}"/>
+                            </div>
+                            <div class="col-sm-7">
+                                <b>Date: </b><span th:utext="${property.bathroom}"/>
+                            </div>
+                        </div>
+                        <!--<span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>-->
+                    </div>
+
+                    <span class="clearfix borda"></span>
+                    <hr class="visible-xs"/>
+                </article>
+
+                <div class="clearfix"></div>
+                <br/><br/>
+                <input th:if="${type != null}" type="hidden" th:value="${type}" id="typeValue"/>
+                <input th:if="${location != null}" type="hidden" th:value="${location}" id="locationValue"/>
+                <input th:if="${minPrice != null}" type="hidden" th:value="${minPrice}" id="minPriceValue"/>
+                <input th:if="${maxPrice != null}" type="hidden" th:value="${maxPrice}" id="maxPriceValue"/>
+                <input type="hidden" th:value="${propertiesCount}" id="propertiesCount"/>
+                <input type="hidden" th:value="${page}" id="page"/>
+                <ul class="pagination" id="pagination">
+                </ul>
+                <br/><br/>
+
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

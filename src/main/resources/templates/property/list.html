@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <title>Room Cha - Property List</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h2>Properties Lists</h2>
+
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>User Email</th>
+        </tr>
+        <tr th:each="property : ${properties}">
+            <td th:text="*{property.location}">Email Sample</td>
+            <td th:text="*{property.price}">Password Sample</td>
+            <td th:text="*{property.user.email}">User Sample</td>
+        </tr>
+    </table>
+
+    <!--<form action="#" th:action="@{/register}" th:object="${user}" method="post" role="form">-->
+    <!--<div class="form-group">-->
+    <!--<label for="email-address">Email address</label>-->
+    <!--<input type="email" class="form-control" id="email-address" placeholder="Email" th:field = "*{email}" />-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="retype-email-address">Retype Email address</label>-->
+    <!--<input type="email" class="form-control" id="retype-email-address" placeholder="Retype Email address" />-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="full-name">Full Name</label>-->
+    <!--<input type="text" class="form-control" id="full-name" placeholder="Full Name" th:field = "*{fullname}"/>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="password">Password</label>-->
+    <!--<input type="password" class="form-control" id="password" placeholder="Password" th:field = "*{password}" />-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="confirm-password">Confirm Password</label>-->
+    <!--<input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" />-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="phone-number">Phone Number</label>-->
+    <!--<input type="text" class="form-control" id="phone-number" placeholder="Phone Number" th:field = "*{phoneNumber}"/>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="secondary-phone-number">Secondary Phone Number (Optional)</label>-->
+    <!--<input type="text" class="form-control" id="secondary-phone-number" placeholder="Secondary Phone Number" />-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="area-location">Area Location (Optional)</label>-->
+    <!--<input type="text" class="form-control" id="area-location" placeholder="Area Location" />-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="city-name">City Name</label>-->
+    <!--<input type="text" class="form-control" id="city-name" placeholder="City Name" th:field = "*{cityName} "/>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label for="profile-pic">Profile Picture</label>-->
+    <!--<input type="file" id="profile-pic" />-->
+    <!--<p class="help-block">Example block-level help text here.</p>-->
+    <!--</div>-->
+    <!--<div class="checkbox">-->
+    <!--<label>-->
+    <!--<input type="checkbox" /> Check me out-->
+    <!--</label>-->
+    <!--</div>-->
+    <!--<button type="submit" class="btn btn-default">Submit</button>-->
+    <!--</form>-->
+
+</div>
+
+</body>
+</html>

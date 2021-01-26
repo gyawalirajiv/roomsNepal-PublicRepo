@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:utext="'Room Cha - ' + ${property.location} + ' | ' + ${property.type}"></title>
+    <script th:src="@{/core/jquery.1.10.2.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script th:src="@{/core/map-collapse.js}"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwdx3x4fQbgoFK1uQ1tM2HAcIhTjv3V_c&callback=initMap">
+    </script>
+    <script th:src="@{/core/sss/sss.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/core/sss/sss.css}" type="text/css" media="all"/>
+    <script>jQuery(function ($) {
+        $('.slider').sss();
+    });</script>
+
+    <!-- For Facebook -->
+    <meta property="og:title" th:content="${property.location} + ' | ' + ${property.type} + ' - ' + ${property.price}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" th:content="${property.photoURLs[0].photoURL}"/>
+    <meta property="og:url" th:content="${#httpServletRequest.requestURL.toString()}"/>
+    <meta property="og:description" th:content="${property.description}"/>
+
+    <!--GOOGLE SEO-->
+    <meta name="description"
+          content="RoomCha.com is a perfect place for you to find your dream rental property in Kathmandu, Nepal; such as Single Room, Flat, or even a Whole House. You can also post your property here for free so public can view and rent your property."/>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h2 class="property-page"><span th:utext="${property.location}"></span> - <span th:utext="${property.type}"></span>
+        (Rs. <span th:utext="${priceString}"></span>)</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="property-images">
+                <h4>Property Images</h4>
+                <div class="slider">
+                    <div th:each="photoURL : ${property.photoURLs}" id="rajiv">
+                        <img th:src="${photoURL.photoURL}" class="tab-img img-responsive"/>
+                    </div>
+                </div>
+                <!--<img th:src="${property.photoURLs.get(0).photoURL}" class="tab-img img-responsive"/>-->
+            </div>
+            <div th:if="${property.mapInput}" class="property-map">
+                <h4>Property Location</h4>
+                <div id="map" style="width:100%;height:300px;"></div>
+                <input type="hidden" id="map-longitute" th:value="${property.longitude}"/>
+                <input type="hidden" id="map-latitute" th:value="${property.latitude}"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Property Details</h4>
+            <table class="table table-striped">
+                <tr>
+                    <td><b>Property Id:</b></td>
+                    <td th:utext="${property.id}"></td>
+                </tr>
+                <tr>
+                    <td><b>Price:</b></td>
+                    <td th:utext="'Rs. ' + ${priceString}">Price</td>
+                </tr>
+                <tr>
+                    <td><b>Location:</b></td>
+                    <td th:utext="${property.location}">Location</td>
+                </tr>
+                <tr>
+                    <td><b>Type:</b></td>
+                    <td th:utext="${property.type}">Room</td>
+                </tr>
+                <tr>
+                    <td><b>Room Size:</b></td>
+                    <td th:utext="${property.roomSize}">Room Size</td>
+                </tr>
+                <tr th:if="${property.description != ''}">
+                    <td><b>Description:</b></td>
+                    <td th:utext="${property.description}"></td>
+                </tr>
+                <tr>
+                    <td><b>Floor Number:</b></td>
+                    <td th:utext="${property.floorNumber}">Floor Number</td>
+                </tr>
+                <tr>
+                    <td><b>Number of Rooms:</b></td>
+                    <td th:utext="${property.numberOfRooms}">Number of Rooms</td>
+                </tr>
+                <tr th:if="${property.bathroom != null}">
+                    <td><b>Bathroom:</b></td>
+                    <td th:utext="${property.bathroom}">Bathroom</td>
+                </tr>
+                <tr th:if="${property.waterSupply != null}">
+                    <td><b>Water Supply:</b></td>
+                    <td th:utext="${property.waterSupply}">Water Supply</td>
+                </tr>
+                <tr th:if="${otherFacilities == 'true'}">
+                    <td><b>Other Facilities:</b></td>
+                    <td>
+                        <span th:if="${property.parkingSpace}"><i class="material-icons">local_parking</i> Parking Space<br/></span>
+                        <span th:if="${property.internetFacility}"><i
+                                class="fa fa-wifi"></i> Internet Facilities<br/></span>
+                        <span th:if="${property.tvCable}"><i class="material-icons">tv</i> TV Cable<br/></span>
+                        <span th:if="${property.petsAllowed}"><i class="fa fa-paw"></i> Pets Allowed</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Posted Date:</b></td>
+                    <td th:utext="${date}">Posted Date</td>
+                </tr>
+            </table>
+            <h4>Seller's Details</h4>
+            <table class="table table-striped">
+                <tr>
+                    <td><b>Seller's Name:</b></td>
+                    <td th:utext="${username}">Seller Name</td>
+                </tr>
+                <tr>
+                    <td><b>Seller's Phone Number:</b></td>
+                    <td th:utext="${userNumber}">Seller Phone Number</td>
+                </tr>
+                <tr th:if="${userSecondaryNumber != null}">
+                    <td><b>Seller's Secondary Number:</b></td>
+                    <td th:utext="${userSecondaryNumber}">Seller Phone Number</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div th:if="${relatedProperties.size() > 0}">
+        <hr style="margin-top: 50px"/>
+        <h4>Related Properties</h4>
+        <div class="row" style="margin-top: 10px">
+            <div th:each="relatedproperty : ${relatedProperties}" class='tab-property col-md-3 col-sm-6 col-xs-6'>
+                <a th:href="'/property/' + ${relatedproperty.id}">
+                    <img th:src="${relatedproperty.photoURLs.get(0).photoURL}" class='tab-img img-responsive'/>
+                    <div class='tab-property-details'>
+                        <h5 th:utext="'Rs. ' + ${relatedproperty.bathroom} + ' - ' + ${relatedproperty.type}"
+                            style='text-align: center'>Rs. 1000 - Room</h5>
+                        <p style='text-align: center'>
+                            <b th:utext="${relatedproperty.location}">Sukedhara</b>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <title>Room Cha - Add Property</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwdx3x4fQbgoFK1uQ1tM2HAcIhTjv3V_c&callback=initMap">
+    </script>
+
+    <script th:src="@{/core/map.js}"></script>
+    <script th:src="@{/core/map-collapse.js}"></script>
+    <script th:src="@{/core/imageUploadButton.js}"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/core/addPropertyAutoComplete.js}"></script>
+    <script th:src="@{/core/activeNavBar/activeFreeAdPage.js}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <form action="#" th:object="${property}" method="post" enctype="multipart/form-data" id="uploadForm"
+          style="margin-top: 10px; margin-bottom: 10px;">
+        <h4 class="col-sm-12">Add Your Property Here</h4>
+        <div class="form-group col-sm-6">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" placeholder="Price" th:field="*{price}"/>
+            <div th:errors="*{price}" class="alert alert-danger">ERROR</div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" placeholder="Location" th:field="*{location}"/>
+            <div th:errors="*{location}" class="alert alert-danger">ERROR</div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="propertyType">Property Type</label>
+            <select class="form-control" id="propertyType" th:field="*{type}">
+                <option value="Flat">Flat</option>
+                <option value="Room">Room</option>
+                <option value="House">House</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="roomSize">Room Size</label>
+            <select class="form-control" id="roomSize" th:field="*{roomSize}">
+                <option value="Medium">Medium</option>
+                <option value="Small">Small</option>
+                <option value="Spacious">Spacious</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="description">Description</label>
+            <textarea class="form-control" rows="5" id="description" placeholder="Description"
+                      th:field="*{description}"/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="floorNumber">Floor Number</label>
+            <select class="form-control" id="floorNumber" th:field="*{floorNumber}">
+                <option value="Ground Floor">Ground Floor</option>
+                <option value="1st Floor">1st Floor</option>
+                <option value="2nd Floor">2nd Floor</option>
+                <option value="3rd Floor">3rd Floor</option>
+                <option value="Above 3rd Floor">Above 3rd Floor</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="roomNumber">Number of Rooms</label>
+            <select class="form-control" id="roomNumber" th:field="*{numberOfRooms}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label>Bathroom</label><br/>
+            <label class="radio-inline"><input type="radio" name="optradio" value="Attached" th:field="*{bathroom}">Attached</label>
+            <label class="radio-inline"><input id="non-attached-bathroom" type="radio" name="optradio"
+                                               value="Non Attached" th:field="*{bathroom}">Non attached </label>
+        </div>
+        <div class="form-group col-sm-6">
+            <label>Water Supply</label><br/>
+            <label class="radio-inline"><input type="radio" name="optradio" value="Yes"
+                                               th:field="*{waterSupply}">Yes</label>
+            <label class="radio-inline"><input id="water-supply-no" type="radio" name="optradio" value="No"
+                                               th:field="*{waterSupply}">No</label>
+        </div>
+        <div class="form-group col-sm-12">
+            <label>Features</label><br/>
+            <label class="checkbox-inline"><input type="checkbox" value="Parking Space" th:field="*{parkingSpace}">Parking
+                Space</label>
+            <label class="checkbox-inline"><input type="checkbox" value="Internet Facility"
+                                                  th:field="*{internetFacility}">Internet Facility</label>
+            <label class="checkbox-inline"><input type="checkbox" value="TV Cable" th:field="*{tvCable}">TV
+                Cable</label>
+            <label class="checkbox-inline"><input type="checkbox" value="Pets Allowed" th:field="*{petsAllowed}">Pets
+                Allowed</label>
+        </div>
+        <button type="button" class="btn btn-success" data-toggle="collapse" id="image-collapse-button"
+                data-target="#image-section" style="margin-bottom: 5px; width: 50%;">Upload Image (Optional)
+        </button>
+        <div id="image-section" class="collapse">
+            <div class="row">
+                <div class="input-group col-xs-6 property-image-button" id="property-image-button-1">
+                    <label class="input-group-btn">
+                    <span class="btn btn-primary  property-image-left-button">
+                        Browse.. <input type="file" name="images" style="display: none;"
+                                        id="property-image-left-button-1">
+                    </span>
+                    </label>
+                    <input type="text" class="form-control property-image-right-text" id="button-file-text-1"
+                           readonly="" placeholder="Click Browse">
+                </div>
+                <div class="input-group col-xs-6 property-image-button" id="property-image-button-2"
+                     style="display: none">
+                    <label class="input-group-btn">
+                    <span class="btn btn-primary  property-image-left-button property-image-left-button-secondary">
+                        Browse.. <input type="file" name="images" style="display: none;"
+                                        id="property-image-left-button-2">
+                    </span>
+                    </label>
+                    <input type="text" class="form-control property-image-right-text" id="button-file-text-2"
+                           readonly="" placeholder="Click Browse (Optional)">
+                </div>
+                <div class="input-group col-xs-6 property-image-button" id="property-image-button-3"
+                     style="display: none">
+                    <label class="input-group-btn">
+                    <span class="btn btn-primary  property-image-left-button property-image-left-button-secondary">
+                        Browse.. <input type="file" name="images" style="display: none;"
+                                        id="property-image-left-button-3">
+                    </span>
+                    </label>
+                    <input type="text" class="form-control property-image-right-text" id="button-file-text-3"
+                           readonly="" placeholder="Click Browse (Optional)">
+                </div>
+                <div class="input-group col-xs-6 property-image-button" id="property-image-button-4"
+                     style="display: none">
+                    <label class="input-group-btn">
+                    <span class="btn btn-primary  property-image-left-button property-image-left-button-secondary">
+                        Browse.. <input type="file" name="images" style="display: none;"
+                                        id="property-image-left-button-4">
+                    </span>
+                    </label>
+                    <input type="text" class="form-control property-image-right-text" id="button-file-text-4"
+                           readonly="" placeholder="Click Browse (Optional)">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <button type="button" th:name="rajiv" th:value="123456" class="btn btn-success" id="map-collapse-button"
+                data-toggle="collapse" data-target="#map-section" style="margin-bottom: 5px; width: 50%;">Add Location
+            via Map (Optional)
+        </button>
+        <input type="text" class="hidden" value="false" name="map-button-pressed" id="map-button-pressed"/>
+        <div id="map-section" class="collapse">
+            <div class="panel-heading"><strong>Map Location: </strong><br/><span><small>After you have found your location, place the marker my clicking on the spot.</small></span>
+            </div>
+            <div id="map"></div>
+            <div class="form-group">
+                <input type="hidden" id="lat" class="form-control" th:field="*{latitude}"/>
+                <input type="hidden" id="lng" class="form-control" th:field="*{longitude}"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="btnSubmit" style="padding: 15px 12px;">Post My Ad
+        </button>
+    </form>
+</div>
+</body>
+</html>

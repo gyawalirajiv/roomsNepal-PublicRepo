@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Room Cha - Edit Ad</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwdx3x4fQbgoFK1uQ1tM2HAcIhTjv3V_c&callback=initMap">
+    </script>
+
+    <script th:src="@{/core/map.js}"></script>
+    <script th:src="@{/core/uploadImage.js}"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/core/addPropertyAutoComplete.js}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <form action="#" th:action="@{/user/property/update}" th:object="${property}" method="post"
+          enctype="multipart/form-data" id="uploadForm">
+        <h4>Edit Property</h4>
+
+        <div class="form-group col-sm-6">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" placeholder="Price" th:field="*{price}"/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="price">Location</label>
+            <input type="text" class="form-control" id="location" placeholder="Location" th:field="*{location}"/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="propertyType">Property Type</label>
+            <select class="form-control" id="propertyType" th:field="*{type}">
+                <option value="Flat">Flat</option>
+                <option value="Room">Room</option>
+                <option value="House">House</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="roomSize">Room Size</label>
+            <select class="form-control" id="roomSize" th:field="*{roomSize}">
+                <option value="Medium">Medium</option>
+                <option value="Small">Small</option>
+                <option value="Spacious">Spacious</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="description">Description</label>
+            <textarea class="form-control" rows="5" id="description" placeholder="Description"
+                      th:field="*{description}"/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="floorNumber">Floor Number</label>
+            <select class="form-control" id="floorNumber" th:field="*{floorNumber}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="roomNumber">Number of Rooms</label>
+            <select class="form-control" id="roomNumber" th:field="*{numberOfRooms}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label>Bathroom</label><br/>
+            <label class="radio-inline"><input type="radio" name="optradio" value="Attached" th:field="*{bathroom}">Attached</label>
+            <label class="radio-inline"><input type="radio" name="optradio" value="Non attacheds"
+                                               th:field="*{bathroom}">Non attached </label>
+        </div>
+        <div class="form-group col-sm-6">
+            <label>Water Supply</label><br/>
+            <label class="radio-inline"><input type="radio" name="optradio" value="Yes"
+                                               th:field="*{waterSupply}">Yes</label>
+            <label class="radio-inline"><input type="radio" name="optradio" value="No"
+                                               th:field="*{waterSupply}">No</label>
+        </div>
+        <div class="form-group col-sm-12">
+            <label>Features</label><br/>
+            <label class="checkbox-inline"><input type="checkbox" value="Parking Space" th:field="*{parkingSpace}">Parking
+                Space</label>
+            <label class="checkbox-inline"><input type="checkbox" value="Internet Facility"
+                                                  th:field="*{internetFacility}">Internet Facility</label>
+            <label class="checkbox-inline"><input type="checkbox" value="TV Cable" th:field="*{tvCable}">TV
+                Cable</label>
+            <label class="checkbox-inline"><input type="checkbox" value="Pets Allowed" th:field="*{petsAllowed}">Pets
+                Allowed</label>
+        </div>
+        <input type="hidden" th:field="*{id}"/>
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 15px 12px; margin-bottom: 5px"
+                id="btnSubmit">Update
+        </button>
+    </form>
+</div>
+</body>
+</html>

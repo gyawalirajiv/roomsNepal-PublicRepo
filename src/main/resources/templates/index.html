@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Room Cha | Best Place to Find Property Rentals in Nepal</title>
+    <script th:src="@{/core/propertyFilters/indexPropertyAjax.js}"></script>
+    <script th:src="@{/core/propertyFilters/indexPropertySingleRoomAjax.js}"></script>
+    <script th:src="@{/core/propertyFilters/indexPropertyFlatAjax.js}"></script>
+    <script th:src="@{/core/propertyFilters/indexPropertyHouseAjax.js}"></script>
+    <script th:src="@{/core/propertyFilters/indexPropertyAllAjax.js}"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/core/indexPropertyAutoComplete.js}"></script>
+    <script th:src="@{/core/indexTabOperation.js}"></script>
+    <script th:src="@{/core/activeNavBar/activeIndexPage.js}"></script>
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Room Cha"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image"
+          content="http://res.cloudinary.com/ddlkvnblt/image/upload/v1528886816/Resources/Images/home-backgroundv2.jpg"/>
+    <meta property="og:url" content="http://139.59.4.226:8080/"/>
+    <meta property="og:description" content="Nepal's best property rental portal."/>
+
+    <!--GOOGLE SEO-->
+    <meta name="description"
+          content="RoomCha.com is a perfect place for you to find your dream rental property in Kathmandu, Nepal; such as Single Room, Flat, or even a Whole House. You can also post your property here for free so public can view and rent your property."/>
+</head>
+<body>
+<div layout:fragment="top-search-area">
+    <div class="row search-area">
+        <div class="container">
+            <div class="row">
+                <div class="right-search-panel col-sm-8">
+                    <div class="home-quote">Discover a place<br/>
+                        you’ll love to live
+                    </div>
+                    <br/>
+                    <ul class="nav nav-tabs home-filter-tab">
+                        <li value="All" role="presentation" class="active"><a href="#">All</a></li>
+                        <li value="Room" role="presentation"><a href="#">Room</a></li>
+                        <li value="Flat" role="presentation"><a href="#">Flat</a></li>
+                        <li value="House" role="presentation"><a href="#">House</a></li>
+                    </ul>
+                    <div class="property-index-autocomplete">
+                        <input id="tags" style="width: 100%;height: 50px;font-size: 18px;" class="form-control"
+                               placeholder="Type Location (e.g. Baneswor, Kalanki)">
+                        <a href="/searchFilter">
+                            <button id="advancedSearchButton"
+                                    style="width: 100%;height: 50px;font-size: 18px; margin-top: 12px;"
+                                    class="btn btn-primary">Advanced Search
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="left-hot-locations-panel col-sm-4 hidden-xs">
+                    <div class="locations-panel">
+                        <h4><span class="glyphicon glyphicon-fire" style="color: #fff"></span><b style="color: #fff">
+                            Hot Locations</b></h4>
+                        <div class="row">
+                            <ul class="col-sm-6" style="list-style: none;">
+                                <li><a href="/searchFilter?location=Bafal">Bafal</a></li>
+                                <li><a href="/searchFilter?location=Baluwatar">Baluwatar</a></li>
+                                <li><a href="/searchFilter?location=Bhaisepati">Bhaisepati</a></li>
+                                <li><a href="/searchFilter?location=Baneswor">Baneswor</a></li>
+                                <li><a href="/searchFilter?location=Bansbari">Bansbari</a></li>
+                                <li><a href="/searchFilter?location=Basundhara">Basundhara</a></li>
+                                <li><a href="/searchFilter?location=Bishalnagar">Bishalnagar</a></li>
+                                <li><a href="/searchFilter?location=Budhanilkantha">Budhanilkantha</a></li>
+                                <li><a href="/searchFilter?location=Dhapakhel">Dhapakhel</a></li>
+                                <li><a href="/searchFilter?location=Dhapasi">Dhapasi</a></li>
+                                <li><a href="/searchFilter?location=Gangabu">Gangabu</a></li>
+                                <li><a href="/searchFilter?location=Galfutar">Galfutar</a></li>
+                                <li><a href="/searchFilter?location=Harisiddhi">Harisiddhi</a></li>
+                                <li><a href="/searchFilter?location=Imadol">Imadol</a></li>
+                            </ul>
+                            <ul class="col-sm-6" style="list-style: none;">
+                                <li><a href="/searchFilter?location=Kalanki">Kalanki</a></li>
+                                <li><a href="/searchFilter?location=Khumaltar">Khumaltar</a></li>
+                                <li><a href="/searchFilter?location=Maharajganj">Maharajganj</a></li>
+                                <li><a href="/searchFilter?location=Mandikatar">Mandikatar</a></li>
+                                <li><a href="/searchFilter?location=Narayanthan">Narayanthan</a></li>
+                                <li><a href="/searchFilter?location=Pasikot">Pasikot</a></li>
+                                <li><a href="/searchFilter?location=Samakhusi">Samakhusi</a></li>
+                                <li><a href="/searchFilter?location=Sanepa">Sanepa</a></li>
+                                <li><a href="/searchFilter?location=Sitapaila">Sitapaila</a></li>
+                                <li><a href="/searchFilter?location=Sukedhara">Sukedhara</a></li>
+                                <li><a href="/searchFilter?location=Thamel">Thamel</a></li>
+                                <li class="last"><a class="btn btn-primary btn-small" style="margin-top: 10px;"
+                                                    href="/searchFilter">Browse all...</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="content">
+    <a href="/user/property/add" class="visible-xs">
+        <button style="width: 100%;height: 50px;font-size: 18px; margin-top: -25px;margin-bottom: 10px;"
+                class="btn btn-success">Click to Post Property for Free
+        </button>
+    </a>
+    <div class="left-hot-locations-panel col-sm-4 visible-xs">
+        <div class="locations-panel" style="margin-left: 0px;">
+            <h4><span class="glyphicon glyphicon-fire" style="color: #fff;"></span><b style="color: #fff"> Hot
+                Locations</b></h4>
+            <div class="row">
+                <ul class="col-sm-6" style="list-style: none;float: left">
+                    <li><a href="/searchFilter?location=Bafal">Bafal</a></li>
+                    <li><a href="/searchFilter?location=Baluwatar">Baluwatar</a></li>
+                    <li><a href="/searchFilter?location=Bhaisepati">Bhaisepati</a></li>
+                    <li><a href="/searchFilter?location=Baneswor">Baneswor</a></li>
+                    <li><a href="/searchFilter?location=Bansbari">Bansbari</a></li>
+                    <li><a href="/searchFilter?location=Basundhara">Basundhara</a></li>
+                    <li><a href="/searchFilter?location=Bishalnagar">Bishalnagar</a></li>
+                    <li><a href="/searchFilter?location=Budhanilkantha">Budhanilkantha</a></li>
+                    <li><a href="/searchFilter?location=Dhapakhel">Dhapakhel</a></li>
+                    <li><a href="/searchFilter?location=Dhapasi">Dhapasi</a></li>
+                    <li><a href="/searchFilter?location=Gangabu">Gangabu</a></li>
+                    <li><a href="/searchFilter?location=Galfutar">Galfutar</a></li>
+                    <li><a href="/searchFilter?location=Harisiddhi">Harisiddhi</a></li>
+                    <li><a href="/searchFilter?location=Imadol">Imadol</a></li>
+                </ul>
+                <ul class="col-sm-6" style="list-style: none;float: right">
+                    <li><a href="/searchFilter?location=Kalanki">Kalanki</a></li>
+                    <li><a href="/searchFilter?location=Khumaltar">Khumaltar</a></li>
+                    <li><a href="/searchFilter?location=Maharajganj">Maharajganj</a></li>
+                    <li><a href="/searchFilter?location=Mandikatar">Mandikatar</a></li>
+                    <li><a href="/searchFilter?location=Narayanthan">Narayanthan</a></li>
+                    <li><a href="/searchFilter?location=Pasikot">Pasikot</a></li>
+                    <li><a href="/searchFilter?location=Samakhusi">Samakhusi</a></li>
+                    <li><a href="/searchFilter?location=Sanepa">Sanepa</a></li>
+                    <li><a href="/searchFilter?location=Sitapaila">Sitapaila</a></li>
+                    <li><a href="/searchFilter?location=Sukedhara">Sukedhara</a></li>
+                    <li><a href="/searchFilter?location=Thamel">Thamel</a></li>
+                    <li class="last"><a class="btn btn-primary btn-small" style="margin-top: 10px;"
+                                        href="/searchFilter">Browse all...</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs property-tabs hidden-xs">
+        <li id="property-tabs-all" value="All" class="active"><a id="all-property-filter">All</a></li>
+        <li id="property-tabs-single-room"><a id="single-room-property-filter">Single-Room</a></li>
+        <li id="property-tabs-flat"><a id="flat-property-filter">Flat</a></li>
+        <li id="property-tabs-house"><a id="house-property-filter">Whole-House</a></li>
+    </ul>
+
+
+    <div class="tab-content hidden-xs">
+        <div id="home-property-tab">
+            <div id="home-property-list">
+            </div>
+            <div class="clearfix"></div>
+            <br/><br/>
+            <ul class="pagination" id="pagination">
+                <li class="active pagination-numbers" data-id="1"><a>1</a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="home-contact-us">
+        <div class="contact-heading">
+            <h3>CONTACT US</h3>
+        </div>
+        <div class="col-md-4">
+            <i class="glyphicon glyphicon-earphone contact-icon"></i>
+            <div class="contact-right">
+                <p>Phone</p><span>+977 9849267164</span>
+            </div>
+        </div>
+        <div class="col-md-4 hidden-xs">
+            <i class="glyphicon glyphicon-envelope contact-icon" aria-hidden="true"></i>
+            <div class="contact-right">
+                <p>Email</p><a href="mailto:info@example.com">info@roomcha.com</a>
+            </div>
+        </div>
+        <div class="col-md-4 contact-address">
+            <i class="glyphicon glyphicon-map-marker contact-icon"></i>
+            <div class="contact-right">
+                <p>Address</p><span>Sukedhara, Kathmandu, Nepal</span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</body>
+</html>

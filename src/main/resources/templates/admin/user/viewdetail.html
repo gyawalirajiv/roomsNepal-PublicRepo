@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <title>User's Property</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="#" alt="" style="width: 100%; height: 500px"/>
+            </div>
+            <div class="col-md-5">
+                <h3>User Details</h3>
+                <p>
+                    <strong>Name</strong> : <span th:text="${user.fullName}"></span>
+                </p>
+                <p>
+                    <strong>Email</strong> : <span th:text="${user.email}"></span>
+                </p>
+                <p>
+                    <strong>Primary Phone Number</strong> : <span th:text="${user.primaryPhoneNumber}"></span>
+                </p>
+                <p>
+                    <strong>Street Name</strong> : <span th:text="${user.streetName}"></span>
+                </p>
+                <p>
+                    <strong>Area Location</strong> : <span th:text="${user.areaLocation}"></span>
+                </p>
+                <p>
+                    <strong>City Name</strong> : <span th:text="${user.cityName}"></span>
+                </p>
+                <p>
+                    <strong>Created Date</strong> : <span th:text="${user.createdDate}"></span>
+                </p>
+                <p>
+                    <strong>Modified Date</strong> : <span th:text="${user.modfiedDate}"></span>
+                </p>
+                <p>
+                    <strong>Status</strong> : <span th:text="${user.active}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

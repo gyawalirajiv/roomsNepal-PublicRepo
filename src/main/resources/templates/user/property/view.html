@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main">
+<head>
+    <title>User's Property</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h2>Property Details</h2>
+
+    <table>
+        <tr>
+            <th>Location</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td th:text="${property.location}">Location Sample</td>
+            <td th:text="${property.price}">Price Sample</td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

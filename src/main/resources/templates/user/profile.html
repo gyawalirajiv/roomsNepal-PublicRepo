@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Room Cha - Profile</title>
+    <script th:src="@{/core/jquery.1.10.2.min.js}"></script>
+    <script th:src="@{/core/uploadProfileImage.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="profile-page">
+        <div th:if="${uploadMessage != null}" th:utext="${uploadMessage}" class="alert alert-danger">Sucess</div>
+        <div class="row" style="margin-top: 10px">
+            <!--<form action="#" th:action="@{/user}" method="post" enctype="multipart/form-data" id="uploadForm">-->
+            <div class="col-md-3">
+                <img id="profileImage" th:src="${user.photoUrl}" alt="" style="width: 100%; border-radius: 60px;"/>
+                <button class="btn btn-sm btn-warning spinner-location" id="spinner-location"><span
+                        class="fa fa-refresh fa-spin"></span> Loading...
+                </button>
+                <!--<div id="profileImageText" class="centered">Update Image</div>-->
+                <button class="btn btn-default profile-image-button"
+                        onclick="document.getElementById('upload').click();return false" id="add_button"><span
+                        class="fa fa fa-plus-circle"> Change Image </span></button>
+            </div>
+            <input type="file" id="upload" name="upload" onchange="onFileSelected(event)" height="200px" multiple/>
+            <!--</form>-->
+            <div class="col-md-9">
+                <a th:href="@{/user/changepassword}">
+                    <button class="btn btn-warning pull-left" style="margin: 5px;"><i class="fa fa-pencil-square-o"
+                                                                                      aria-hidden="true"></i> Change
+                        Password
+                    </button>
+                </a>
+                <a th:href="@{/user/update}">
+                    <button class="btn btn-success pull-right" style="margin: 5px;"><i class="fa fa-pencil-square-o"
+                                                                                       aria-hidden="true"></i> Update
+                        Info
+                    </button>
+                </a>
+                <table class="table table-striped">
+                    <tr>
+                        <td><b>Name:</b></td>
+                        <td th:text="${user.fullName}">Full Name Sample</td>
+                    </tr>
+                    <tr>
+                        <td><b>Email:</b></td>
+                        <td th:text="${user.email}">Email Sample</td>
+                    </tr>
+                    <tr>
+                        <td><b>Primary Phone Number:</b></td>
+                        <td th:text="${user.primaryPhoneNumber}"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Phone Verified:</b></td>
+                        <span th:switch="${user.verifiedNumber}">
+                <td th:case="true" style="color: #5cb85c;">Verified</td>
+                <td th:case="false" style="color: #d44950;">Unverified</td>
+                            <!--<p th:case="*">Default Case</p>-->
+            </span>
+                    </tr>
+                    <tr th:if="${!user.secondaryPhoneNumber.empty}">
+                        <td><b>Secondary Phone Number:</b></td>
+                        <td th:text="${user.secondaryPhoneNumber}"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Area Location:</b></td>
+                        <td th:text="${user.areaLocation}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

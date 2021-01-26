@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>User's Property</title>
+    <script th:src="@{/core/activeNavBar/activePostedAdPage.js}"></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h2 class="user-ads-lists">Ads Lists</h2>
+
+    <table class="table table-striped property-list">
+        <thead>
+        <tr class="bg-success">
+            <th scope="col" style="width: 5%">ID</th>
+            <th scope="col" style="width: 5%">Location</th>
+            <th scope="col" style="width: 8%">Price</th>
+            <th scope="col" class="hidden-xs" style="width: 5%">Type</th>
+            <th scope="col" class="hidden-xs" style="width: 8%">Ad Creation Date</th>
+            <th scope="col" style="width: 10%">Actions</th>
+            <th scope="col" style="width: 10%"></th>
+            <th scope="col" style="width: 10%"></th>
+        </tr>
+        <tr th:each="property :${properties}" th:class="${property.sold} ? property-sold : property-unsold">
+            <td th:text="${property.id}"></td>
+            <td th:text="${property.location}"></td>
+            <td th:text="'Rs. ' + ${property.waterSupply}"></td>
+            <td class="hidden-xs" th:text="${property.type}"></td>
+            <td class="hidden-xs" th:text="${property.bathroom}"></td>
+            <td>
+                <a th:href="'/property/' + ${property.id}" target="_blank">
+                    <button class="btn btn-primas"><span class="glyphicon glyphicon-eye-open"></span> Preview</button>
+                </a>
+            </td>
+            <td th:if="${!property.sold}">
+                <a th:href="@{'/user/property/update/'+${property.id}}" style="color: #27ae60;">
+                    <button class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                    </button>
+                </a>
+            </td>
+            <td th:if="${!property.sold}">
+                <a th:href="'/user/property/sold/' + ${property.id}" style="color: #e74c3c;">
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-usd"></span> Sold</button>
+                </a>
+            </td>
+            <td th:if="${property.sold}">
+                <a th:href="'/user/property/sold/' + ${property.id}" style="color: #e74c3c;">
+                    <button class="btn btn-primary"> Activate</button>
+                </a>
+            </td>
+            <td th:if="${property.sold}">
+                <a th:href="'/user/property/delete/' + ${property.id}" style="color: #e74c3c;">
+                    <button class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+                </a>
+            </td>
+        </tr>
+        </thead>
+    </table>
+
+</div>
+
+</body>
+</html>
